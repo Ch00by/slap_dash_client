@@ -11,17 +11,16 @@
 
 /* Globals */
 SoftwareSerial softser(ARD_RX_ESP_TX, ARD_TX_ESP_RX);
-//ESP8266 wifi(&softser, &Serial, ESP_RST);
-ESP8266 wifi(&softser, NULL, ESP_RST);
+ESP8266 wifi(&softser, &Serial, ESP_RST);
+//ESP8266 wifi(&softser, NULL, ESP_RST);
 char WiFiBuffer[256];
 
-#define ESP_SSID "tech guest" // Your network name here
-#define ESP_PASS "bigred38" // Your network password here
+#define ESP_SSID "" // Your network name here
+#define ESP_PASS "" // Your network password here
 
 #define HOST     "www.neil-lakin.com"     // Host to contact
-#define GET_PAGE "/test_api"             // Web page to request
-//#define POST_PAGE "/test_post"          // for testing post requests
-#define POST_RUN  "/runner/Neil"
+#define GET_PAGE "/test_api"             // test GET request
+#define POST_PAGE "/test_post"          // for testing POST requests
 #define PORT     80                     // 80 = HTTP default port
 
 void setup() {
@@ -77,7 +76,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (digitalRead(TAP_INT)) {
     Serial.print("tapped");
-    wifi.postURL(F(POST_RUN));
+    wifi.postURL(F(POST_PAGE));
     wifi.find(F("}"));
     clearInterrupt();
     delay(2);
